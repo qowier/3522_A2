@@ -29,18 +29,24 @@
 
 class Algorithm {
 private:
-    //Saves the best distance of
-    double best_distance;
-    double base_distance;
+    //Vector of tours to compute.
     vector<Tour *> population;
+
+    //Saves the best distance of the genetic algorithm run
+    double best_distance;
+
+    //Base distance used to compare tour distances
+    double base_distance;
+
+    // number of elites, can be set differently via setter
+    int NUMBER_OF_ELITES = 1;
+
     //TODO, needs set/get
     // the actual number of ’parent’ tours crossed to generate each
     // ’offspring’ tour
     int NUMBER_OF_PARENTS = 0;
-    //TODO, needs set/get
-    // the actual number of ’parent’ tours crossed to generate each
-    // ’offspring’ tour
-    int NUMBER_OF_ELITES = 1;
+
+public:
 
 
 public:
@@ -59,16 +65,32 @@ public:
      */
     void determine_fitness();
 
-    //TODO will select the parents for a new tour from a
-    //    population
-    void select_parents();
+    /**
+     * Cycles through the population of tours sets the base_distance
+     */
+    void set_base();
 
-    // TODO creates a new tour from a given set of parent tours
-    void crossover();
+    /**
+     * Setter for number of elites
+     * @param numberOfElites int
+     */
+    void setNumberOfElites(int numberOfElites);
+
+    /**
+     * Function to pick the x number of elites.
+     * @param numberElite int
+     */
+    void pickElite(int numberElite);
 
     // TODO may mutate a tour
     void mutate();
 
+    // TODO creates a new tour from a given set of parent tours
+    void crossover();
+
+    //TODO will select the parents for a new tour from a
+    //    population
+    void select_parents();
 };
 
 

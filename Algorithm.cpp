@@ -23,6 +23,33 @@ void Algorithm::determine_fitness() {
             fittest = tour->getFitnessRating();
         }
     }
+    best_distance = fittest;
+}
+
+void Algorithm::set_base() {
+    double fittest = population[0]->getFitnessRating();
+    for (const Tour* tour : population) {
+        if (tour->getFitnessRating() < fittest){
+            fittest = tour->getFitnessRating();
+        }
+    }
     base_distance = fittest;
 }
 
+void Algorithm::pickElite(int NUMBER_OF_ELITES) {
+    int count = 0;
+    while (count != NUMBER_OF_ELITES) {
+        for (int i = count; i < (int)population.size(); ++i){
+            double localBest = population[count]->getFitnessRating();
+            if (population[i]->getFitnessRating() < localBest){
+                localBest = population[i]->getFitnessRating();
+                std::swap(population[i], population[count]);
+            }
+        }
+        ++count;
+    }
+}
+
+void Algorithm::setNumberOfElites(int numberOfElites) {
+    NUMBER_OF_ELITES = numberOfElites;
+}
