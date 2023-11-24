@@ -49,7 +49,7 @@ public:
      * Checks if a tour contains a specific city.
      * @param city City to be searched for
      */
-    bool contains_city(City city) const;
+    bool contains_city(const City& city) const;
 };
 
 
