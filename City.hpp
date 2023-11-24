@@ -1,4 +1,4 @@
-//
+// City class to
 // Created by hyper on 2023-11-22.
 //
 
@@ -9,15 +9,18 @@
 #include <utility>
 
 using namespace std;
-class City {
-public:
+struct City {
+    //Name of City
     string name;
+
+    //City (x,y) coordinates
     int x;
     int y;
-    bool visited;
 
-    City(string name, int x, int y, bool visited = false) : name(std::move(name)), x(x), y(y), visited(visited){};
+    //Constructor
+    City(string name, int x, int y) : name(std::move(name)), x(x), y(y){};
 
+    //Default destructor
     ~City() = default;
 };
 
