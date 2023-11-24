@@ -46,11 +46,8 @@ public:
         //TODO 32 of Tours for population called POPULATION_SIZE     .
     }
 
-
     //Generates master list of Cities
     vector<City> generate_master_list(int size);
-
-    //TODO SHUFFLE function uses default vector shuffle();
 
     //TODO shuffle cities in a tour
     void shuffleCities();
