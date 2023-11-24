@@ -20,3 +20,6 @@ void SingletonFacade::generate_master_list(int size) {
     }
 }
 
+void SingletonFacade::run() {
+
+}

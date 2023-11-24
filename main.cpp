@@ -5,8 +5,19 @@
 //Set: 3B
 
 #include <iostream>
+#include "SingletonFacade.hpp"
 
+/*
+ * Drives program.
+ */
 int main() {
     std::cout << "Assignment 2, Hello, World!" << std::endl;
+
+    //Instantiate singleton
+    SingletonFacade sf = SingletonFacade->get_instance();
+
+    //Run genetic algorithm.
+    sf.run();
+
     return 0;
 }
