@@ -19,7 +19,12 @@ void Tour::setCitiesInTours(int citiesInTours) {
 }
 
 Tour::Tour(const vector<City *> &masterList) {
-    std::default_random_engine defaul_ran(0);
+    default_random_engine defaul_ran(0);
     this->cityList = masterList;
-    std::shuffle(this->cityList.begin(), this->cityList.end(), defaul_ran);
+    shuffle(this->cityList.begin(), this->cityList.end(), defaul_ran);
+}
+
+void Tour::shuffleCities() {
+    default_random_engine defaul_ran(0);
+    shuffle(this->cityList.begin(), this->cityList.end(), defaul_ran);
 }

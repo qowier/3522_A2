@@ -24,6 +24,9 @@ public:
     void setFitnessRating(double fitnessRating);
 
     void setCitiesInTours(int citiesInTours);
+
+    //TODO shuffle cities in a tour
+    void shuffleCities();
 };
 
 

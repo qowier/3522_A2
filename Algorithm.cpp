@@ -15,3 +15,11 @@ vector<City> Algorithm::generate_master_list(int size) {
 
     return master_list;
 }
+
+double Algorithm::get_distance_between_cities(City* city1, City* city2) {
+    double sumX = pow((city1->x + city2->x) ,2);
+    double sumY = pow((city1->y + city2->y) ,2);
+
+    return sqrt(sumX+sumY);
+}
+

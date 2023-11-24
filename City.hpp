@@ -22,6 +22,7 @@ struct City {
 
     //Default destructor
     ~City() = default;
+
 };
 
 
