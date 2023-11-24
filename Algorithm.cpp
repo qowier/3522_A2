@@ -23,5 +23,6 @@ void Algorithm::determine_fitness() {
             fittest = tour->getFitnessRating();
         }
     }
+    base_distance = fittest;
 }
 
