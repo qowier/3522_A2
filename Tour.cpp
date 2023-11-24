@@ -45,3 +45,11 @@ double Tour::get_tour_distance() {
     return totalDistance;
 }
 
+bool Tour::contains_city(City city) const {
+    for (const City *tourCity: cityList) {
+        if (tourCity->x == city.x && tourCity->y == city.y) {
+            return true;
+        }
+    }
+    return false; // City not found in the tour}
+}

@@ -13,7 +13,7 @@
 
 class Tour {
 private:
-    double fitnessRating{};
+    double fitnessRating;
     int CITIES_IN_TOURS = 32;
     vector<City *> cityList;
 public:
@@ -44,6 +44,12 @@ public:
      * Shuffles the cities in the tour.
      */
     void shuffleCities();
+
+    /**
+     * Checks if a tour contains a specific city.
+     * @param city City to be searched for
+     */
+    bool contains_city(City city) const;
 };
 
 
