@@ -11,6 +11,7 @@
 #include <ctime>
 #include "City.hpp"
 #include "Tour.hpp"
+#include "Algorithm.hpp"
 
 using namespace std;
 
@@ -18,7 +19,7 @@ class SingletonFacade {
 private:
     vector<City> master_list;
     vector<Tour> population;
-
+    Algorithm algo;
     SingletonFacade() = default;
 public:
     //Singleton facade for genetic algo.

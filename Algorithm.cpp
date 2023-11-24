@@ -3,6 +3,9 @@
 //
 
 #include "Algorithm.hpp"
+
+Algorithm::Algorithm()=default;
+
 vector<City> Algorithm::generate_master_list() {
     random_device rd;
     mt19937 generator(rd());
@@ -52,4 +55,20 @@ void Algorithm::pickElite(int NUMBER_OF_ELITES) {
 
 void Algorithm::setNumberOfElites(int numberOfElites) {
     NUMBER_OF_ELITES = numberOfElites;
+}
+
+vector<Tour> Algorithm::generate_init_tours() {
+    return vector<Tour>();
+}
+
+vector<Tour> Algorithm::generate_init_tours(const vector<City*>& masterList) {
+    for (int i = 0; i < masterList.size() -1 ; ++i) {
+        Tour *newTour = new Tour(masterList);
+        population.push_back(newTour);
+    }
+    return{};
+}
+
+const vector<Tour *> Algorithm::getPopulation() const {
+    return population;
 }

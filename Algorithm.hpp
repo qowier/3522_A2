@@ -9,10 +9,6 @@
 
 #include "City.hpp"
 #include "Tour.hpp"
-/**
- *
- */
-
 
 #define ITERATION_MAX 1000
 #define MAP_BOUNDARY  1000
@@ -20,8 +16,6 @@
 //TODO the number of members randomly selected from the population
 //when choosing a parent, from which the fittest is made a ’parent’
 #define  PARENT_POOL_SIZE 5
-//TODO NICE TO HAVE
-//probably low like 15 percent but it would be nice if the user can choose
 #define MUTATION_RATE 0.15
 #define IMPROVEMENT_FACTOR 2.40914
 #define POPULATION_SIZE 32
@@ -47,9 +41,6 @@ private:
     int NUMBER_OF_PARENTS = 0;
 
 public:
-
-
-public:
     //TODO Constructor
     Algorithm();
 
@@ -58,6 +49,19 @@ public:
      * @return vector<City>
      */
     vector<City> generate_master_list();
+
+    /**
+     * Generates initial tours
+     * @param masterList master list of cities
+     * @return vector of Tour
+     */
+    vector<Tour> generate_init_tours(const vector<City*>& masterList);
+
+    /**
+     * Getter for population
+     * @return vector<Tour *> Tours
+     */
+    const vector<Tour *> getPopulation() const;
 
     /**
      * Cycles through the population of tours and saves the lowest distance
