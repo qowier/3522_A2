@@ -9,10 +9,6 @@
 
 #include "City.hpp"
 #include "Tour.hpp"
-/**
- *
- */
-
 
 #define ITERATION_MAX 1000
 #define MAP_BOUNDARY  1000
@@ -24,13 +20,16 @@
 //probably low like 15 percent but it would be nice if the user can choose
 #define MUTATION_RATE 0.15
 #define IMPROVEMENT_FACTOR 2.40914
+#define POPULATION_SIZE 32
 
 
 class Algorithm {
 private:
+    //Saves the best distance of
     double best_distance;
     double base_distance;
-    vector<Tour> population;
+    vector<Tour *> population;
+    vector<double> fitness;
     //TODO, needs set/get
     // the actual number of ’parent’ tours crossed to generate each
     // ’offspring’ tour
@@ -42,20 +41,18 @@ private:
 
 
 public:
-    Algorithm(){
-        //TODO 32 of Tours for population called POPULATION_SIZE     .
-    }
+    //TODO Constructor
+    Algorithm();
 
+    /**
+     * Generates a master list of 32 Cities.
+     * @return vector<City>
+     */
+    vector<City> generate_master_list();
 
-    //Generates master list of Cities
-    vector<City> generate_master_list(int size);
-
-    //TODO SHUFFLE function uses default vector shuffle();
-
-    //TODO shuffle cities in a tour
-    void shuffleCities();
-
-    //TODO determines the fitness of a tour
+    /**
+     * Cycles through the population of tours and saves their fitness ratings.
+     */
     void determine_fitness();
 
     //TODO will select the parents for a new tour from a
@@ -67,9 +64,6 @@ public:
 
     // TODO may mutate a tour
     void mutate();
-
-    //TODO checks if a tour contains a specific city.
-    void contains_city(City city);
 
 };
 
