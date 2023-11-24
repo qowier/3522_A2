@@ -24,9 +24,14 @@ private:
 
     SingletonFacade() = default;
 public:
+    //Singleton facade for genetic algo.
     static SingletonFacade get_instance();
 
+    //Generates master list of Cities
     void generate_master_list(int size);
+
+    //Starts genetic algorithm steps.
+    void run();
 };
 
 
