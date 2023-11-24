@@ -22,7 +22,6 @@ void Algorithm::determine_fitness() {
         if (tour->getFitnessRating() < fittest){
             fittest = tour->getFitnessRating();
         }
-        fitness.push_back(tour->getFitnessRating());
     }
 }
 
