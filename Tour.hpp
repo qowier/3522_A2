@@ -12,7 +12,11 @@
 class Tour {
 private:
     double fitnessRating{};
+    int CITIES_IN_TOURS = 32;
+public:
+    void setCitiesInTours(int citiesInTours);
 
+private:
     vector<City *> cityList;
 public:
     Tour(vector<City*> masterList) : cityList(std::move(masterList)){}

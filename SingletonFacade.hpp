@@ -5,8 +5,6 @@
 #ifndef LAB1TEMPLATE_SINGLETONFACADE_HPP
 
 #define LAB1TEMPLATE_SINGLETONFACADE_HPP
-#define UPPER_BOUND 1000
-#define LOWER_BOUND 0
 
 #include <vector>
 #include <string>
