@@ -9,14 +9,18 @@
 #include <utility>
 
 using namespace std;
-class City {
-public:
+struct City {
+    //Name of City
     string name;
+
+    //City (x,y) coordinates
     int x;
     int y;
 
+    //Constructor
     City(string name, int x, int y) : name(std::move(name)), x(x), y(y){};
 
+    //Default destructor
     ~City() = default;
 };
 
