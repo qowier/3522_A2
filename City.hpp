@@ -14,9 +14,8 @@ public:
     string name;
     int x;
     int y;
-    bool visited;
 
-    City(string name, int x, int y, bool visited = false) : name(std::move(name)), x(x), y(y), visited(visited){};
+    City(string name, int x, int y) : name(std::move(name)), x(x), y(y){};
 
     ~City() = default;
 };

@@ -14,10 +14,10 @@ int main() {
     std::cout << "Assignment 2, Hello, World!" << std::endl;
 
     //Instantiate singleton
-    SingletonFacade sf = SingletonFacade->get_instance();
+//    SingletonFacade sf = SingletonFacade->get_instance();
 
     //Run genetic algorithm.
-    sf.run();
+//    sf.run();
 
     return 0;
 }

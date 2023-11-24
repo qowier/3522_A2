@@ -4,6 +4,9 @@
 
 #ifndef LAB1TEMPLATE_ALGORITHM_HPP
 #define LAB1TEMPLATE_ALGORITHM_HPP
+#include <iostream>
+#include <random>
+
 #include "City.hpp"
 #include "Tour.hpp"
 /**
@@ -42,6 +45,10 @@ public:
     Algorithm(){
         //TODO 32 of Tours for population called POPULATION_SIZE     .
     }
+
+
+    //Generates master list of Cities
+    vector<City> generate_master_list(int size);
 
     //TODO SHUFFLE function uses default vector shuffle();
 

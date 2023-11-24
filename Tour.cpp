@@ -17,3 +17,9 @@ void Tour::setFitnessRating(double new_fitnessRating) {
 void Tour::setCitiesInTours(int citiesInTours) {
     CITIES_IN_TOURS = citiesInTours;
 }
+
+Tour::Tour(const vector<City *> &masterList) {
+    std::default_random_engine defaul_ran(0);
+    this->cityList = masterList;
+    std::shuffle(this->cityList.begin(), this->cityList.end(), defaul_ran);
+}

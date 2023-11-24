@@ -8,8 +8,6 @@
 
 #include <vector>
 #include <string>
-#include <iostream>
-#include <random>
 #include <ctime>
 #include "City.hpp"
 #include "Tour.hpp"
@@ -25,9 +23,6 @@ private:
 public:
     //Singleton facade for genetic algo.
     static SingletonFacade get_instance();
-
-    //Generates master list of Cities
-    void generate_master_list(int size);
 
     //Starts genetic algorithm steps.
     void run();

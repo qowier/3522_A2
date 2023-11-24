@@ -8,6 +8,8 @@
 #include "City.hpp"
 #include <utility>
 #include <vector>
+#include <algorithm>
+#include <random>
 
 class Tour {
 private:
@@ -19,13 +21,11 @@ public:
 private:
     vector<City *> cityList;
 public:
-    Tour(vector<City*> masterList) : cityList(std::move(masterList)){}
+    explicit Tour(const vector<City*>& masterList);
 
     [[nodiscard]] double getFitnessRating() const;
 
     void setFitnessRating(double fitnessRating);
-
-
 };
 
 
