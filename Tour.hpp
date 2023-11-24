@@ -6,18 +6,20 @@
 #define LAB1TEMPLATE_TOUR_HPP
 
 #include "City.hpp"
+#include <utility>
 #include <vector>
 
 class Tour {
 private:
-    double fitnessRating;
+    double fitnessRating{};
+
+    vector<City *> cityList;
 public:
-    double getFitnessRating() const;
+    Tour(vector<City*> masterList) : cityList(std::move(masterList)){}
+
+    [[nodiscard]] double getFitnessRating() const;
 
     void setFitnessRating(double fitnessRating);
-
-private:
-    vector<City *> cityList;
 
 };
 

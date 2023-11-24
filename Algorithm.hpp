@@ -10,7 +10,8 @@
 
 class Algorithm {
 private:
-
+    double best_distance;
+    double base_distance;
 };
 
 

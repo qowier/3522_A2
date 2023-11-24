@@ -8,6 +8,6 @@ double Tour::getFitnessRating() const {
     return fitnessRating;
 }
 
-void Tour::setFitnessRating(double fitnessRating) {
-    Tour::fitnessRating = fitnessRating;
+void Tour::setFitnessRating(double new_fitnessRating) {
+    Tour::fitnessRating = new_fitnessRating;
 }
