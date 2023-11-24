@@ -21,5 +21,6 @@ void SingletonFacade::generate_master_list(int size) {
 }
 
 void SingletonFacade::run() {
-
+    //genrate_master_cities_list();
+    //generate_tour_list();
 }

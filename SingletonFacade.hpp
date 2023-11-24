@@ -14,6 +14,7 @@
 #include <random>
 #include <ctime>
 #include "City.hpp"
+#include "Tour.hpp"
 
 using namespace std;
 
