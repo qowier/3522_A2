@@ -19,6 +19,20 @@ private:
 public:
     explicit Tour(const vector<City*>& masterList);
 
+    /**
+   * Returns the distance of the tour.
+   * @return totalDistance double
+   */
+    double get_tour_distance();
+
+    /**
+     *  Gets the distance between 2 Cities
+     * @param city1
+     * @param city2
+     * @return cityDistance distance between 2 cities
+     */
+    double get_distance_between_cities(City* city1, City* city2);
+
     [[nodiscard]] double getFitnessRating() const;
 
     void setFitnessRating(double fitnessRating);
@@ -27,6 +41,7 @@ public:
 
     //TODO shuffle cities in a tour
     void shuffleCities();
+
 };
 
 

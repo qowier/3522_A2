@@ -46,16 +46,14 @@ public:
         //TODO 32 of Tours for population called POPULATION_SIZE     .
     }
 
+
     //Generates master list of Cities
     vector<City> generate_master_list(int size);
 
-    //TODO   to calculate the distance between two
-    //    cities
-    double get_distance_between_cities(City* city1, City* city2);
+    //TODO SHUFFLE function uses default vector shuffle();
 
-    //TODO reports the distance between the cities as they are
-    //    listed in a tour
-    void get_tour_distance();
+    //TODO shuffle cities in a tour
+    void shuffleCities();
 
     //TODO determines the fitness of a tour
     void determine_fitness();
