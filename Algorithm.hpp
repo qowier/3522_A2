@@ -33,7 +33,6 @@ private:
     double best_distance;
     double base_distance;
     vector<Tour *> population;
-    vector<double> fitness;
     //TODO, needs set/get
     // the actual number of ’parent’ tours crossed to generate each
     // ’offspring’ tour
@@ -55,7 +54,8 @@ public:
     vector<City> generate_master_list();
 
     /**
-     * Cycles through the population of tours and saves their fitness ratings.
+     * Cycles through the population of tours and saves the lowest distance
+     * rating as the base_distance
      */
     void determine_fitness();
 
