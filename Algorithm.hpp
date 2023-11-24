@@ -9,6 +9,7 @@
  */
 
 class Algorithm {
+private:
 
 };
 
