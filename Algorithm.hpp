@@ -13,12 +13,10 @@
 #define ITERATION_MAX 1000
 #define MAP_BOUNDARY  1000
 #define MAP_BOUNDARY_LOWER 0
-//TODO the number of members randomly selected from the population
-//when choosing a parent, from which the fittest is made a ’parent’
-#define  PARENT_POOL_SIZE 5
+#define POPULATION_SIZE 32
+#define PARENT_POOL_SIZE 5
 #define MUTATION_RATE 0.15
 #define IMPROVEMENT_FACTOR 2.40914
-#define POPULATION_SIZE 32
 
 
 class Algorithm {
