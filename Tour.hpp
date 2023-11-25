@@ -30,7 +30,7 @@ public:
    * Returns the distance of the tour.
    * @return totalDistance double
    */
-    double get_tour_distance();
+    double get_tour_distance() const;
 
     /**
      *  Gets the distance between 2 Cities
@@ -38,7 +38,7 @@ public:
      * @param city2
      * @return cityDistance distance between 2 cities
      */
-    double get_distance_between_cities(City* city1, City* city2);
+    static double get_distance_between_cities(City* city1, City* city2);
 
     /**
      * Shuffles the cities in the tour.

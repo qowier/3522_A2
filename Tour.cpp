@@ -5,7 +5,7 @@
 #include "Tour.hpp"
 
 double Tour::getFitnessRating() const {
-    return fitnessRating;
+    return get_tour_distance();
 }
 
 //Setter for fitness rating.
@@ -36,12 +36,11 @@ double Tour::get_distance_between_cities(City* city1, City* city2) {
     return sqrt(sumX+sumY);
 }
 
-double Tour::get_tour_distance() {
+double Tour::get_tour_distance() const{
     double totalDistance = 0.0;
     for (size_t i = 0; i < cityList.size() - 1; ++i) {
         totalDistance += get_distance_between_cities(cityList[i], cityList[i + 1]);
     }
-    totalDistance += get_distance_between_cities(cityList.back(), cityList.front()); // Return to starting city
     return totalDistance;
 }
 
