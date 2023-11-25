@@ -13,8 +13,6 @@ SingletonFacade SingletonFacade::get_instance() {
 }
 
 void SingletonFacade::run() {
-    master_list = algo.generate_master_list();
-    population = algo.getPopulation();
     /*
      *  while loop (termination criteria not reached) {
      *      determine_fitness (selects the best of current tour)
