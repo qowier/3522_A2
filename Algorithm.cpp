@@ -57,12 +57,14 @@ void Algorithm::setNumberOfElites(int numberOfElites) {
     NUMBER_OF_ELITES = numberOfElites;
 }
 
-vector<Tour> Algorithm::generate_init_tours() {
-    return vector<Tour>();
-}
+//TODO
+//Implement this function to make tours
+//vector<Tour> Algorithm::generate_init_tours() {
+//    return vector<Tour>();
+//}
 
 vector<Tour> Algorithm::generate_init_tours(const vector<City*>& masterList) {
-    for (int i = 0; i < masterList.size() -1 ; ++i) {
+    for (size_t i = 0; i < masterList.size(); ++i) {
         Tour *newTour = new Tour(masterList);
         population.push_back(newTour);
     }
