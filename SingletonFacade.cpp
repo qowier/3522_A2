@@ -13,6 +13,20 @@ SingletonFacade SingletonFacade::get_instance() {
 }
 
 void SingletonFacade::run() {
+    // Creat cities and place them in one master list
+    algo.generate_master_list();
+
+    // Use the master list to create tours and place them in population vector
+    algo.generate_population();
+
+    // Set the base fitness
+    algo.set_base();
+
+    // Set the first fitness to compare with the base;
+    algo.determine_fitness();
+
+    // Run genetic algorithm
+    algo.genetic_algorithm();
     /*
      *  while loop (termination criteria not reached) {
      *      determine_fitness (selects the best of current tour)
