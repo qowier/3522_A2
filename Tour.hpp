@@ -17,6 +17,15 @@ private:
     int CITIES_IN_TOURS = 32;
     vector<City *> cityList;
 public:
+    /**
+     * Default constructor
+     */
+    Tour() = default;
+
+    /**
+     * Constructor take in the master list and shuffle it to random position
+     * @param masterList
+     */
     explicit Tour(const vector<City> &masterList);
 
     //Setters and getters
@@ -30,7 +39,7 @@ public:
    * Returns the distance of the tour.
    * @return totalDistance double
    */
-    double get_tour_distance() const;
+    [[nodiscard]] double get_tour_distance() const;
 
     /**
      *  Gets the distance between 2 Cities
@@ -40,6 +49,18 @@ public:
      */
     static double get_distance_between_cities(City* city1, City* city2);
 
+    /**
+     * Add a new city to the city_list
+     * @param new_city
+     */
+    void add_city(City* new_city);
+
+    /**
+     * Get a city in the city_list at the index
+     * @param index
+     * @return City pointer;
+     */
+    City* getCity(int index);
     /**
      * Shuffles the cities in the tour.
      */

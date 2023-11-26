@@ -49,9 +49,19 @@ double Tour::get_tour_distance() const{
 
 bool Tour::contains_city(const City& city) const {
     for (const City *tourCity: cityList) {
-        if (tourCity->x == city.x && tourCity->y == city.y) {
+        if (city.name == tourCity->name) {
             return true;
         }
     }
-    return false; // City not found in the tour}
+    return false; // City not found in the tour
 }
+
+void Tour::add_city(City *new_city) {
+    this->cityList.push_back(new_city);
+}
+
+City *Tour::getCity(int index) {
+    return cityList[index];
+}
+
+
