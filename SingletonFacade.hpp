@@ -8,9 +8,6 @@
 
 #include <vector>
 #include <string>
-#include <ctime>
-#include "City.hpp"
-#include "Tour.hpp"
 #include "Algorithm.hpp"
 
 using namespace std;
