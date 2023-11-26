@@ -4,8 +4,10 @@
 
 #ifndef LAB1TEMPLATE_ALGORITHM_HPP
 #define LAB1TEMPLATE_ALGORITHM_HPP
+
 #include <iostream>
 #include <random>
+#include <utility>
 
 #include "City.hpp"
 #include "Tour.hpp"
@@ -17,10 +19,15 @@
 #define PARENT_POOL_SIZE 5
 #define MUTATION_RATE 0.15
 #define IMPROVEMENT_FACTOR 2.40914
+#define NUMBER_OF_ELITES 1
 
+using namespace std;
 
 class Algorithm {
 private:
+    //Vector of city (master_list)
+    vector<City> master_list;
+
     //Vector of tours to compute.
     vector<Tour *> population;
 
@@ -30,8 +37,10 @@ private:
     //Base distance used to compare tour distances
     double base_distance;
 
+    double current_improvement;
+
     // number of elites, can be set differently via setter
-    int NUMBER_OF_ELITES = 1;
+    int numberOfElites;
 
     //TODO, needs set/get
     // the actual number of ’parent’ tours crossed to generate each
@@ -43,23 +52,32 @@ public:
     Algorithm();
 
     /**
-     * Generates a master list of 32 Cities.
-     * @return vector<City>
+     * Destructor
      */
-    vector<City> generate_master_list();
+    ~Algorithm();
 
     /**
-     * Generates initial tours
+     * Generates a master list of 32 Cities at default.
+     */
+    void generate_master_list(int size = POPULATION_SIZE);
+
+    /**
+     * Generates one single tour by using the master_list internally
      * @param masterList master list of cities
      * @return vector of Tour
      */
-    vector<Tour> generate_init_tours(const vector<City*>& masterList);
+    Tour* generate_tour();
+
+    /**
+     * Generate a population of tour
+     */
+    void generate_population();
 
     /**
      * Getter for population
      * @return vector<Tour *> Tours
      */
-    const vector<Tour *> getPopulation() const;
+    [[nodiscard]] vector<Tour *> getPopulation() const;
 
     /**
      * Cycles through the population of tours and saves the lowest distance
@@ -79,20 +97,25 @@ public:
     void setNumberOfElites(int numberOfElites);
 
     /**
+
      * Function to pick the x number of elites.
      * @param numberElite int
      */
-    void pickElite(int numberElite);
+    void pickElite(int numberElite = NUMBER_OF_ELITES);
+
+    void genetic_algorithm();
 
     // TODO may mutate a tour
     void mutate();
 
     // TODO creates a new tour from a given set of parent tours
-    void crossover();
+    static Tour* crossover(Tour* parent1, Tour* parent2);
 
     //TODO will select the parents for a new tour from a
     //    population
-    void select_parents();
+    static pair<Tour *, Tour *> select_parents(const vector<Tour*>& set1, const vector<Tour*>& set2);
+
+    static int getRandomInt(int min, int max);
 };
 
 
