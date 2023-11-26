@@ -17,7 +17,7 @@ private:
     int CITIES_IN_TOURS = 32;
     vector<City *> cityList;
 public:
-    explicit Tour(const vector<City*>& masterList);
+    explicit Tour(const vector<City> &masterList);
 
     //Setters and getters
     [[nodiscard]] double getFitnessRating() const;
