@@ -18,9 +18,11 @@ void Tour::setCitiesInTours(int citiesInTours) {
     CITIES_IN_TOURS = citiesInTours;
 }
 
-Tour::Tour(const vector<City *> &masterList) {
+Tour::Tour(const vector<City> &masterList) {
     default_random_engine defaul_ran(0);
-    this->cityList = masterList;
+    for(City city : masterList){
+        cityList.push_back(&city);
+    }
     shuffle(this->cityList.begin(), this->cityList.end(), defaul_ran);
 }
 
@@ -41,6 +43,7 @@ double Tour::get_tour_distance() const{
     for (size_t i = 0; i < cityList.size() - 1; ++i) {
         totalDistance += get_distance_between_cities(cityList[i], cityList[i + 1]);
     }
+    totalDistance += get_distance_between_cities(cityList.back(), cityList.front());
     return totalDistance;
 }
 
