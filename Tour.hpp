@@ -31,8 +31,6 @@ public:
     //Setters and getters
     [[nodiscard]] double getFitnessRating() const;
 
-    void setFitnessRating(double fitnessRating);
-
     void setCitiesInTours(int citiesInTours);
 
     /**
