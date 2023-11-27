@@ -4,9 +4,12 @@
 
 #include "Algorithm.hpp"
 
-Algorithm::Algorithm()=default;
+Algorithm::Algorithm() {
+    best_distance = INT_MAX;
+    base_distance = INT_MAX;
+    current_improvement = 0;
+};
 
-//TODO: Make destructor to deallocate city and tour
 Algorithm::~Algorithm() {
     for (Tour* tour : population) {
         delete(tour);
@@ -62,18 +65,6 @@ void Algorithm::set_base() {
 }
 
 void Algorithm::pickElite() {
-//    int count = 0;
-//    while (count < number_of_elite) {
-//        double localBest = population[count]->getFitnessRating();
-//        for (int i = count + 1; i < (int)population.size(); ++i){
-//            if (population[i]->getFitnessRating() < localBest){
-//                localBest = population[i]->getFitnessRating();
-//                swap(population[i], population[count]);
-//            }
-//        }
-//        ++count;
-//    }
-
     double elite_fitness = determine_fitness();
 
     for (int i = 0; i < POPULATION_SIZE; i++) {
@@ -98,7 +89,6 @@ void Algorithm::mutate(Tour* tour) {
         }
     }
 }
-
 
 Tour* Algorithm::crossover(Tour *parent1, Tour *parent2) {
     // Child tour

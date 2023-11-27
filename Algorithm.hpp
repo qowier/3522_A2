@@ -9,7 +9,7 @@
 #include <random>
 #include <utility>
 #include <memory>
-
+#include <climits>
 #include "City.hpp"
 #include "Tour.hpp"
 
@@ -40,21 +40,13 @@ private:
 
     double current_improvement;
 
-    // number of elites, can be set differently via setter
-    int numberOfElites;
-
-    //TODO, needs set/get
-    // the actual number of ’parent’ tours crossed to generate each
-    // ’offspring’ tour
     int NUMBER_OF_PARENTS = 0;
 
 public:
-    //TODO Constructor
+    /** Constructor*/
     Algorithm();
 
-    /**
-     * Destructor
-     */
+    /** Destructor */
     ~Algorithm();
 
     /**
@@ -109,10 +101,18 @@ public:
      */
     void genetic_algorithm();
 
-    // TODO may mutate a tour
+    /**
+     * Mutates tours
+     * @param tour Tour*
+     */
     static void mutate(Tour* tour);
 
-    // TODO creates a new tour from a given set of parent tours
+    /**
+     * Crosses over to form new tour from 2 parents
+     * @param parent1 Tour*
+     * @param parent2 Tour*
+     * @return crossover Tour*
+     */
     static Tour* crossover(Tour* parent1, Tour* parent2);
 
     /** Select the parents for a new tour from population
