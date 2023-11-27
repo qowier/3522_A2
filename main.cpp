@@ -4,7 +4,6 @@
 //Student ID: A01320311
 //Set: 3B
 
-#include <iostream>
 #include "SingletonFacade.hpp"
 
 /*
