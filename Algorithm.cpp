@@ -140,19 +140,21 @@ void Algorithm::genetic_algorithm() {
     set_best_fitness(base_distance);
 
     while(base_distance / best_distance < IMPROVEMENT_FACTOR && counter < ITERATION_MAX){
-        // Get the first elite and put it at the front
+        // Get the first elite in population and swaps to front.
         pickElite();
 
-        //crosses.clear();
-
+        //Reset all vector<Tour*>
+        crosses.clear();
         set1.clear();
+        set2.clear();
+
         // Create set 1 to store 5 tours (use to get parents)
-        for(int i = 0; i < 5; i++) {
+        for(int i = 0; i < PARENT_POOL_SIZE; i++) {
             set1.push_back(population[getRandomInt(1, POPULATION_SIZE)]);
         }
-        set2.clear();
+
         // Create set 2 to store 5 tours, different from set 1 (use to get parents)
-        while (set2.size() < 5) {
+        while (set2.size() < PARENT_POOL_SIZE) {
             Tour* candidate = population[getRandomInt(1, POPULATION_SIZE)];
 
             // Check if the candidate is not in parent1
