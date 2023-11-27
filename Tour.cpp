@@ -5,11 +5,12 @@
 #include "Tour.hpp"
 
 Tour::Tour(const vector<City> &masterList) {
-    default_random_engine defaul_ran(0);
+    std::random_device rd;
+    std::mt19937 gen(rd());
     for(const City& city : masterList){
         cityList.push_back(new City(city));
     }
-    shuffle(this->cityList.begin(), this->cityList.end(), defaul_ran);
+    std::shuffle(this->cityList.begin(), this->cityList.end(), gen);
     fitnessRating = get_tour_distance();
 }
 
