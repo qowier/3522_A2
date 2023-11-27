@@ -83,9 +83,13 @@ vector<Tour *> Algorithm::getPopulation() const {
 }
 
 void Algorithm::mutate(Tour* tour) {
-    for (size_t i = 0; i < tour->get_city_list().size()-1; i++) {
+    for (size_t i = 0; i < tour->get_city_list().size(); i++) {
         if (getRandomDouble(0, 1) <= MUTATION_RATE) {
-            swap(tour->get_city_list()[i], tour->get_city_list()[(i + 1) % tour->get_city_list().size()]);
+            if(i == tour->get_city_list().size()-1){
+                swap(tour->get_city_list()[i], tour->get_city_list()[0]);
+
+            }
+            swap(tour->get_city_list()[i], tour->get_city_list()[i+1]);
         }
     }
 }
@@ -130,7 +134,7 @@ double Algorithm::getRandomDouble(double min, double max) {
 
 void Algorithm::genetic_algorithm() {
     int counter = 0;
-    double new_fitness = 0;
+    double new_fitness;
     vector<Tour *> set1;
     vector<Tour *> set2;
     vector<Tour*> crosses;
@@ -167,7 +171,7 @@ void Algorithm::genetic_algorithm() {
         crosses.push_back(population[0]);
 
         // Create new population from crossing two sets above (set1 and set2)
-        while (crosses.size() - 1 < POPULATION_SIZE){
+        while (crosses.size() - 2 < POPULATION_SIZE){
             // Call selectParent to get a pair of parent from each set
             parents = select_parents(set1, set2);
 
@@ -182,8 +186,8 @@ void Algorithm::genetic_algorithm() {
 
         // Update new population with merged and mutated Tour
         population.clear();
-        population.assign(crosses.begin(), crosses.end());
-        //crosses.clear();
+        population = crosses;
+        crosses.clear();
 
         // Revaluate fitness to find the best_fitness
         new_fitness = determine_fitness();
@@ -206,4 +210,14 @@ void Algorithm::genetic_algorithm() {
 
     cout<<"--- FINISHED ALGORITHM ---"<<endl;
     cout<<"Total iterations: "<<counter<<endl;
+    cout<<"Original Elite: "<<endl;
+    cout<<"Distance: "<<0<<endl;
+    cout<<"Tour"<<endl<<endl;
+
+    cout<<"Best Elite: "<<endl;
+    cout<<"Distance: "<<0<<endl;
+    cout<<"Tour"<<endl<<endl;
+
+    cout<<"Improvement reached!"<<endl;
+    cout<<"Improvement factor: "<<IMPROVEMENT_FACTOR;
 }
