@@ -28,8 +28,11 @@ public:
      */
     explicit Tour(const vector<City> &masterList);
 
-    //Setters and getters
+    //Getter for fitness Rating
     [[nodiscard]] double getFitnessRating() const;
+
+    //Setter for Fitness Rating
+    void setFitnessRating(double fr);
 
     void setCitiesInTours(int citiesInTours);
 

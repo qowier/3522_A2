@@ -83,9 +83,13 @@ vector<Tour *> Algorithm::getPopulation() const {
 }
 
 void Algorithm::mutate(Tour* tour) {
-    for (size_t i = 0; i < tour->get_city_list().size()-1; i++) {
+    for (size_t i = 0; i < tour->get_city_list().size(); i++) {
         if (getRandomDouble(0, 1) <= MUTATION_RATE) {
-            swap(tour->get_city_list()[i], tour->get_city_list()[(i + 1) % tour->get_city_list().size()]);
+            if(i == tour->get_city_list().size()-1){
+                swap(tour->get_city_list()[i], tour->get_city_list()[0]);
+
+            }
+            swap(tour->get_city_list()[i], tour->get_city_list()[i+1]);
         }
     }
 }
@@ -104,6 +108,8 @@ Tour* Algorithm::crossover(Tour *parent1, Tour *parent2) {
             t->add_city(parent2->getCity(i));
         }
     }
+    t->setFitnessRating(t->get_tour_distance());
+
     return t;
 }
 
@@ -183,7 +189,7 @@ void Algorithm::genetic_algorithm() {
         // Update new population with merged and mutated Tour
         population.clear();
         population.assign(crosses.begin(), crosses.end());
-        //crosses.clear();
+        crosses.clear();
 
         // Revaluate fitness to find the best_fitness
         new_fitness = determine_fitness();
