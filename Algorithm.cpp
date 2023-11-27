@@ -43,7 +43,7 @@ void Algorithm::generate_population() {
 
 double Algorithm::determine_fitness() {
     double fittest = population[0]->getFitnessRating();
-    for (const Tour* tour : population) {
+     for (const Tour* tour : population) {
         if (tour->getFitnessRating() < fittest){
             fittest = tour->getFitnessRating();
         }
@@ -61,7 +61,7 @@ void Algorithm::set_base() {
     base_distance = fittest;
 }
 
-void Algorithm::pickElite(int number_of_elite) {
+void Algorithm::pickElite() {
 //    int count = 0;
 //    while (count < number_of_elite) {
 //        double localBest = population[count]->getFitnessRating();
@@ -85,10 +85,6 @@ void Algorithm::pickElite(int number_of_elite) {
 
 void Algorithm::set_best_fitness(double new_fitness) {
     best_distance = new_fitness;
-}
-
-void Algorithm::setNumberOfElites(int number_of_elites) {
-    numberOfElites = number_of_elites;
 }
 
 vector<Tour *> Algorithm::getPopulation() const {
@@ -175,6 +171,7 @@ void Algorithm::genetic_algorithm() {
             }
         }
 
+        crosses.clear();
         // Put the elite in the front of the crosses
         crosses.push_back(population[0]);
 
@@ -195,7 +192,7 @@ void Algorithm::genetic_algorithm() {
         // Update new population with merged and mutated Tour
         population.clear();
         population.assign(crosses.begin(), crosses.end());
-//        crosses.clear();
+        //crosses.clear();
 
         // Revaluate fitness to find the best_fitness
         new_fitness = determine_fitness();

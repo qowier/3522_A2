@@ -98,17 +98,11 @@ public:
     void set_base();
 
     /**
-     * Setter for number of elites
-     * @param numberOfElites int
-     */
-    void setNumberOfElites(int numberOfElites);
-
-    /**
 
      * Function to pick the x number of elites.
      * @param numberElite int
      */
-    void pickElite(int numberElite = NUMBER_OF_ELITES);
+    void pickElite();
 
     /**
      * Calculate genetic algorithm to find the best tour
