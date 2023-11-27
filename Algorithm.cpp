@@ -108,6 +108,8 @@ Tour* Algorithm::crossover(Tour *parent1, Tour *parent2) {
             t->add_city(parent2->getCity(i));
         }
     }
+    t->setFitnessRating(t->get_tour_distance());
+
     return t;
 }
 
@@ -134,7 +136,7 @@ double Algorithm::getRandomDouble(double min, double max) {
 
 void Algorithm::genetic_algorithm() {
     int counter = 0;
-    double new_fitness;
+    double new_fitness = 0;
     vector<Tour *> set1;
     vector<Tour *> set2;
     vector<Tour*> crosses;
@@ -186,8 +188,7 @@ void Algorithm::genetic_algorithm() {
 
         // Update new population with merged and mutated Tour
         population.clear();
-        population = crosses;
-        crosses.clear();
+        population.assign(crosses.begin(), crosses.end());
 
         // Revaluate fitness to find the best_fitness
         new_fitness = determine_fitness();

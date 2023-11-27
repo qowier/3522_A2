@@ -65,4 +65,8 @@ vector<City *> Tour::get_city_list() {
     return this->cityList;
 }
 
+void Tour::setFitnessRating(double fr) {
+    fitnessRating = fr;
+}
+
 
