@@ -14,9 +14,6 @@ Algorithm::~Algorithm() {
 }
 
 void Algorithm::generate_master_list(int size) {
-//    random_device rd;
-//    mt19937 generator(rd());
-//    uniform_int_distribution<> distribution(MAP_BOUNDARY_LOWER, MAP_BOUNDARY);
     char c;
     for(int i = 0; i < size; i++) {
         c = (char)(i+65);
@@ -65,16 +62,24 @@ void Algorithm::set_base() {
 }
 
 void Algorithm::pickElite(int number_of_elite) {
-    int count = 0;
-    while (count < number_of_elite) {
-        double localBest = population[count]->getFitnessRating();
-        for (int i = count + 1; i < (int)population.size(); ++i){
-            if (population[i]->getFitnessRating() < localBest){
-                localBest = population[i]->getFitnessRating();
-                swap(population[i], population[count]);
-            }
+//    int count = 0;
+//    while (count < number_of_elite) {
+//        double localBest = population[count]->getFitnessRating();
+//        for (int i = count + 1; i < (int)population.size(); ++i){
+//            if (population[i]->getFitnessRating() < localBest){
+//                localBest = population[i]->getFitnessRating();
+//                swap(population[i], population[count]);
+//            }
+//        }
+//        ++count;
+//    }
+
+    double elite_fitness = determine_fitness();
+
+    for (int i = 0; i < POPULATION_SIZE; i++) {
+        if(population[i]->getFitnessRating() == elite_fitness) {
+            swap(population[i], population[0]);
         }
-        ++count;
     }
 }
 
@@ -91,10 +96,13 @@ vector<Tour *> Algorithm::getPopulation() const {
 }
 
 void Algorithm::mutate(Tour* tour) {
-    if(getRandomDouble(0, 1) <= MUTATION_RATE) {
-        tour->shuffleCities();
+    for (size_t i = 0; i < tour->get_city_list().size()-1; i++) {
+        if (getRandomDouble(0, 1) <= MUTATION_RATE) {
+            swap(tour->get_city_list()[i], tour->get_city_list()[(i + 1) % tour->get_city_list().size()]);
+        }
     }
 }
+
 
 Tour* Algorithm::crossover(Tour *parent1, Tour *parent2) {
     // Child tour
@@ -136,17 +144,20 @@ double Algorithm::getRandomDouble(double min, double max) {
 
 void Algorithm::genetic_algorithm() {
     int counter = 0;
-    double new_fitness;
+    double new_fitness = 0;
     vector<Tour *> set1;
     vector<Tour *> set2;
     vector<Tour*> crosses;
     pair<Tour*, Tour*> parents;
+
+    // Best_fitness will equal to base initially
     set_best_fitness(base_distance);
 
     while(base_distance / best_distance < IMPROVEMENT_FACTOR && counter < ITERATION_MAX){
         // Get the first elite and put it at the front
         pickElite();
 
+        //crosses.clear();
 
         set1.clear();
         // Create set 1 to store 5 tours (use to get parents)
@@ -165,7 +176,7 @@ void Algorithm::genetic_algorithm() {
         }
 
         // Put the elite in the front of the crosses
-        crosses.insert(crosses.begin(), population[0]);
+        crosses.push_back(population[0]);
 
         // Create new population from crossing two sets above (set1 and set2)
         while (crosses.size() < POPULATION_SIZE){
@@ -177,38 +188,34 @@ void Algorithm::genetic_algorithm() {
         }
 
         // Perform mutation in the crosses vector (new population)
-//        for (size_t i = 1; i < crosses.size(); i++) {
-//            mutate(crosses[i]);
-//        }
+        for (size_t i = 1; i < crosses.size(); i++) {
+            mutate(crosses[i]);
+        }
 
         // Update new population with merged and mutated Tour
         population.clear();
-        population = std::move(crosses);
+        population.assign(crosses.begin(), crosses.end());
+//        crosses.clear();
 
         // Revaluate fitness to find the best_fitness
         new_fitness = determine_fitness();
 
-        if(base_distance / new_fitness >= IMPROVEMENT_FACTOR){
-            cout<<"--- FINISHED ALGORITHM ---"<<endl;
-            break;
-        }else if(new_fitness < best_distance) {
+
+        if(new_fitness < best_distance) {
             set_best_fitness(new_fitness);
+            cout<<"Iteration: "<<counter<<endl;
             cout<<"NEW ELITE FOUND: "<<endl;
-            cout<<"Base: "<<base_distance<<endl;
-            cout<<"Best: "<<best_distance<<endl<<endl;
-//            cout<<"Iteration: "<<counter<<endl;
-//            cout<<"NEW ELITE FOUND: "<<endl;
-//            cout<<"Distance:"<< best_distance <<endl;
-//            cout<<"Improvement over base: "<< base_distance / best_distance <<endl<<endl;
+            cout<<"Distance:"<< best_distance <<endl;
+            cout<<"Improvement over base: "<< base_distance / best_distance <<endl<<endl;
         }else {
-            cout<<"Base: "<<base_distance<<endl;
-            cout<<"Best: "<<best_distance<<endl<<endl;
-            cout<<"Non-elite: "<<new_fitness<<endl<<endl;
-//            cout<<"Iteration: "<<counter<<endl;
-//            cout<<"Elite Distance: "<< best_distance<<endl;
-//            cout<<"Best non-elite distance: "<<new_fitness<<endl;
-//            cout<<"Improvement over base: "<< base_distance / best_distance <<endl<<endl;
+            cout<<"Iteration: "<<counter<<endl;
+            cout<<"Elite Distance: "<< best_distance<<endl;
+            cout<<"Best non-elite distance: "<<new_fitness<<endl;
+            cout<<"Improvement over base: "<< base_distance / best_distance <<endl<<endl;
         }
         counter ++;
     }
+
+    cout<<"--- FINISHED ALGORITHM ---"<<endl;
+    cout<<"Total iterations: "<<counter<<endl;
 }

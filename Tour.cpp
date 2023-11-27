@@ -49,7 +49,7 @@ double Tour::get_tour_distance() const{
 
 bool Tour::contains_city(const City& city) const {
     for (const City *tourCity: cityList) {
-        if (city.name == tourCity->name) {
+        if (city.name == tourCity->name && city.x == tourCity->x && city.y == tourCity->y) {
             return true;
         }
     }
@@ -64,8 +64,8 @@ City* Tour::getCity(int index) {
     return cityList[index];
 }
 
-vector<City *> * Tour::get_city_list() {
-    return &cityList;
+vector<City *> Tour::get_city_list() {
+    return this->cityList;
 }
 
 
