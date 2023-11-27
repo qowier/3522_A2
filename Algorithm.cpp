@@ -163,12 +163,11 @@ void Algorithm::genetic_algorithm() {
             }
         }
 
-        crosses.clear();
         // Put the elite in the front of the crosses
         crosses.push_back(population[0]);
 
         // Create new population from crossing two sets above (set1 and set2)
-        while (crosses.size() < POPULATION_SIZE){
+        while (crosses.size() - 1 < POPULATION_SIZE){
             // Call selectParent to get a pair of parent from each set
             parents = select_parents(set1, set2);
 
@@ -192,12 +191,12 @@ void Algorithm::genetic_algorithm() {
 
         if(new_fitness < best_distance) {
             set_best_fitness(new_fitness);
-            cout<<"Iteration: "<<counter<<endl;
+            cout<<"Iteration: "<<counter + 1 <<endl;
             cout<<"NEW ELITE FOUND: "<<endl;
             cout<<"Distance:"<< best_distance <<endl;
             cout<<"Improvement over base: "<< base_distance / best_distance <<endl<<endl;
         }else {
-            cout<<"Iteration: "<<counter<<endl;
+            cout<<"Iteration: "<<counter + 1 <<endl;
             cout<<"Elite Distance: "<< best_distance<<endl;
             cout<<"Best non-elite distance: "<<new_fitness<<endl;
             cout<<"Improvement over base: "<< base_distance / best_distance <<endl<<endl;
