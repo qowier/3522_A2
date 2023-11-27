@@ -22,9 +22,6 @@ void SingletonFacade::run() {
     // Set the base fitness
     algo.set_base();
 
-    // Set the first fitness to compare with the base;
-    algo.determine_fitness();
-
     // Run genetic algorithm
     algo.genetic_algorithm();
     /*

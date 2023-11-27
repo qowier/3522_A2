@@ -7,6 +7,7 @@
 #define LAB1TEMPLATE_SINGLETONFACADE_HPP
 
 #include <vector>
+#include <iostream>
 #include <string>
 #include "Algorithm.hpp"
 

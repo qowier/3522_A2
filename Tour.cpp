@@ -20,8 +20,8 @@ void Tour::setCitiesInTours(int citiesInTours) {
 
 Tour::Tour(const vector<City> &masterList) {
     default_random_engine defaul_ran(0);
-    for(City city : masterList){
-        cityList.push_back(&city);
+    for(const City& city : masterList){
+        cityList.push_back(new City(city));
     }
     shuffle(this->cityList.begin(), this->cityList.end(), defaul_ran);
 }
@@ -60,8 +60,12 @@ void Tour::add_city(City *new_city) {
     this->cityList.push_back(new_city);
 }
 
-City *Tour::getCity(int index) {
+City* Tour::getCity(int index) {
     return cityList[index];
+}
+
+vector<City *> * Tour::get_city_list() {
+    return &cityList;
 }
 
 

@@ -7,4 +7,5 @@ set(CMAKE_CXX_STANDARD 20)
 add_executable(assignment2template main.cpp
         Tour.cpp
         Tour.hpp
-        Algorithm.cpp)
+        Algorithm.cpp
+        SingletonFacade.cpp)

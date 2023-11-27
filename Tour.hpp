@@ -61,6 +61,8 @@ public:
      * @return City pointer;
      */
     City* getCity(int index);
+
+    vector<City*> * get_city_list();
     /**
      * Shuffles the cities in the tour.
      */

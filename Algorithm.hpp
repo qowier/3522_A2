@@ -8,6 +8,7 @@
 #include <iostream>
 #include <random>
 #include <utility>
+#include <memory>
 
 #include "City.hpp"
 #include "Tour.hpp"
@@ -80,10 +81,16 @@ public:
     [[nodiscard]] vector<Tour *> getPopulation() const;
 
     /**
-     * Cycles through the population of tours and saves the lowest distance
-     * rating as the base_distance
+     * Cycles through the population of tours and return the lowest distance
+     * rating
      */
-    void determine_fitness();
+    double determine_fitness();
+
+    /**
+     * Set the current best fitness with a new fitness (used when found a better fitness)
+     * @param new_fitness
+     */
+    void set_best_fitness(double new_fitness);
 
     /**
      * Cycles through the population of tours sets the base_distance
@@ -103,19 +110,28 @@ public:
      */
     void pickElite(int numberElite = NUMBER_OF_ELITES);
 
+    /**
+     * Calculate genetic algorithm to find the best tour
+     */
     void genetic_algorithm();
 
     // TODO may mutate a tour
-    void mutate();
+    static void mutate(Tour* tour);
 
     // TODO creates a new tour from a given set of parent tours
     static Tour* crossover(Tour* parent1, Tour* parent2);
 
-    //TODO will select the parents for a new tour from a
-    //    population
+    /** Select the parents for a new tour from population
+     *
+     * @param set1
+     * @param set2
+     * @return pair<Tour*, Tour*> parents
+     */
     static pair<Tour *, Tour *> select_parents(const vector<Tour*>& set1, const vector<Tour*>& set2);
 
     static int getRandomInt(int min, int max);
+
+    static double getRandomDouble(double min, double max);
 };
 
 
