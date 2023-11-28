@@ -18,8 +18,8 @@
 #define MAP_BOUNDARY_LOWER 0
 #define POPULATION_SIZE 32
 #define PARENT_POOL_SIZE 5
-#define MUTATION_RATE 0.15
-#define IMPROVEMENT_FACTOR 2.40914
+#define MUTATION_RATE 0.45
+#define IMPROVEMENT_FACTOR 1.25
 #define NUMBER_OF_ELITES 1
 
 using namespace std;
@@ -90,7 +90,6 @@ public:
     void set_base();
 
     /**
-
      * Function to pick the x number of elites.
      * @param numberElite int
      */
@@ -123,8 +122,20 @@ public:
      */
     static pair<Tour *, Tour *> select_parents(const vector<Tour*>& set1, const vector<Tour*>& set2);
 
+    /**
+     * Get a random integer
+     * @param min
+     * @param max
+     * @return
+     */
     static int getRandomInt(int min, int max);
 
+    /**
+     * Get a random double number
+     * @param min
+     * @param max
+     * @return
+     */
     static double getRandomDouble(double min, double max);
 };
 
