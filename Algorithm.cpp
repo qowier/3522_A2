@@ -147,7 +147,7 @@ void Algorithm::genetic_algorithm() {
     // Best_fitness will equal to base initially
     set_best_fitness(base_distance);
 
-    while(base_distance / best_distance < IMPROVEMENT_FACTOR && counter < ITERATION_MAX){
+    while(current_improvement < IMPROVEMENT_FACTOR && counter < ITERATION_MAX){
         // Get the first elite in population and swaps to front.
         pickElite();
 //        cout<<"Population"<<endl;
@@ -178,7 +178,7 @@ void Algorithm::genetic_algorithm() {
         crosses.push_back(population[0]);
 
         // Create new population from crossing two sets above (set1 and set2)
-        while (crosses.size() - 1 < POPULATION_SIZE){
+        while (crosses.size() <= POPULATION_SIZE){
             // Call selectParent to get a pair of parent from each set
             parents = select_parents(set1, set2);
 
@@ -197,35 +197,26 @@ void Algorithm::genetic_algorithm() {
             mutate(crosses[i]);
         }
 
-//        cout<<"Crosses"<<endl;
-//        for (Tour* t : crosses) {
-//            cout<<t<<endl;
-//        }
-        cout<<endl;
         // Update new population with merged and mutated Tour
         population.clear();
         population.assign(crosses.begin(), crosses.end());
-
-//        cout<<"Population"<<endl;
-//        for (Tour* t : population) {
-//            cout<<t<<endl;
-//        }
+        crosses.clear();
 
         // Revaluate fitness to find the best_fitness
         new_fitness = determine_fitness();
-
+        current_improvement = base_distance / best_distance - 1;
 
         if(new_fitness < best_distance) {
             set_best_fitness(new_fitness);
             cout<<"Iteration: "<<counter + 1 <<endl;
-            cout<<"NEW ELITE FOUND: "<<endl;
+            cout<<"NEW ELITE FOUND!" <<endl;
             cout<<"Distance:"<< best_distance <<endl;
-            cout<<"Improvement over base: "<< base_distance / best_distance <<endl<<endl;
+            cout<<"Improvement over base: "<< current_improvement <<endl<<endl;
         }else {
             cout<<"Iteration: "<<counter + 1 <<endl;
             cout<<"Elite Distance: "<< best_distance<<endl;
             cout<<"Best non-elite distance: "<<new_fitness<<endl;
-            cout<<"Improvement over base: "<< base_distance / best_distance <<endl<<endl;
+            cout<<"Improvement over base: "<< current_improvement <<endl<<endl;
         }
         counter ++;
     }

@@ -25,6 +25,7 @@ void SingletonFacade::run() {
     // Run genetic algorithm
     algo.genetic_algorithm();
     /*
+     *  pseudo code:
      *  while loop (termination criteria not reached) {
      *      determine_fitness (selects the best of current tour)
      *      pickElite(); (swap bests to proper top-of-list)

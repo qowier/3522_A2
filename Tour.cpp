@@ -20,11 +20,6 @@ double Tour::getFitnessRating() const {
     return fitnessRating;
 }
 
-//Setter for cities in tours, default at 32
-void Tour::setCitiesInTours(int citiesInTours) {
-    CITIES_IN_TOURS = citiesInTours;
-}
-
 void Tour::shuffleCities() {
     default_random_engine defaul_ran(0);
     shuffle(this->cityList.begin(), this->cityList.end(), defaul_ran);
@@ -73,6 +68,10 @@ void Tour::setFitnessRating(double fr) {
 
 void Tour::set_city_list(vector<City *> new_list) {
     this->cityList = std::move(new_list);
+}
+
+int Tour::getCitiesInTours() const {
+    return CITIES_IN_TOURS;
 }
 
 

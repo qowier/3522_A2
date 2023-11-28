@@ -28,13 +28,17 @@ public:
      */
     explicit Tour(const vector<City> &masterList);
 
-    //Getter for fitness Rating
+    /**Getter for fitness Rating */
     [[nodiscard]] double getFitnessRating() const;
 
-    //Setter for Fitness Rating
+    /**Setter for Fitness Rating*/
     void setFitnessRating(double fr);
 
-    void setCitiesInTours(int citiesInTours);
+    /** Getter for number of cities in the tour */
+    int getCitiesInTours() const;
+
+    /**Getter for cityList */
+    vector<City*> get_city_list();
 
     /**
    * Returns the distance of the tour.
@@ -51,19 +55,17 @@ public:
     static double get_distance_between_cities(City* city1, City* city2);
 
     /**
-     * Add a new city to the city_list
-     * @param new_city
-     */
-    void add_city(City* new_city);
-
-    /**
      * Get a city in the city_list at the index
      * @param index
      * @return City pointer;
      */
     City* getCity(int index);
 
-    vector<City*> get_city_list();
+    /**
+     * Add a new city to the city_list
+     * @param new_city
+     */
+    void add_city(City* new_city);
 
     /**
      * Shuffles the cities in the tour.

@@ -38,7 +38,7 @@ private:
     //Base distance used to compare tour distances
     double base_distance;
 
-    double current_improvement;
+    double current_improvement = base_distance / best_distance;
 
     int NUMBER_OF_PARENTS = 0;
 
