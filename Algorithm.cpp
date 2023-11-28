@@ -236,5 +236,5 @@ void Algorithm::genetic_algorithm() {
         << population[0]->toString() << endl<<endl;
 
     cout<<"Improvement reached!"<<endl;
-    cout<<"Improvement factor: "<<IMPROVEMENT_FACTOR;
+    cout<<"Improvement factor: "<< current_improvement;
 }
