@@ -17,12 +17,18 @@ Algorithm::~Algorithm() {
 }
 
 void Algorithm::generate_master_list(int size) {
-    char c;
+    char c; // Character representative of a city
+    string name; // name of a city
     for(int i = 0; i < size; i++) {
-        c = (char)(i+65);
-        master_list.emplace_back(to_string(c),
-                                 getRandomInt(MAP_BOUNDARY_LOWER, MAP_BOUNDARY),
-                                 getRandomInt(MAP_BOUNDARY_LOWER, MAP_BOUNDARY));
+        if(i >= 23) {
+            c = static_cast<char>((i-23) + 'a'); // If is more than 23 make city name become lower case letter;
+        }else{
+            c = static_cast<char>(i + 'A'); // Else city name is an upper case letter
+        }
+        name = string(1, c); // Turn char to string
+        master_list.emplace_back(name,
+                              getRandomInt(MAP_BOUNDARY_LOWER, MAP_BOUNDARY),
+                              getRandomInt(MAP_BOUNDARY_LOWER, MAP_BOUNDARY));
     }
 }
 
@@ -84,7 +90,8 @@ vector<Tour *> Algorithm::getPopulation() const {
 
 void Algorithm::mutate(Tour* tour) {
     for (size_t i = 0; i < tour->get_city_list().size(); i++) {
-        if (((double)getRandomInt(0, 100) / 100) <= MUTATION_RATE) {
+//        if (((double)getRandomInt(0, 100) / 100) <= MUTATION_RATE) {
+            if(getRandomDouble(0.0, 1) <= MUTATION_RATE){
             City* currentCity = tour->getCity(i);
             City* nextCity = (i == tour->get_city_list().size() - 1) ? tour->getCity(0) : tour->getCity(i + 1);
 
@@ -226,7 +233,7 @@ void Algorithm::genetic_algorithm() {
 
     //Final output.
     cout<<"--- FINISHED ALGORITHM ---"<< endl
-        << "Total iterations: "<< counter + 1 << endl
+        << "Total iterations: "<< counter << endl
         <<"Original Elite: " << endl
         <<"Distance: " << base_distance << endl
         << ogList <<endl<<endl;
@@ -235,6 +242,9 @@ void Algorithm::genetic_algorithm() {
         <<"Distance: " << population[0]->getFitnessRating() <<endl
         << population[0]->toString() << endl<<endl;
 
-    cout<<"Improvement reached!"<<endl;
+    if(current_improvement >= IMPROVEMENT_FACTOR){
+        cout<<"Improvement reached!"<<endl;
+    }
+
     cout<<"Improvement factor: "<< current_improvement;
 }
