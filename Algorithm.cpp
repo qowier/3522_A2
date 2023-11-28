@@ -104,7 +104,7 @@ Tour* Algorithm::crossover(Tour *parent1, Tour *parent2) {
         new_list.push_back(parent1->getCity(i));
     }
 
-    for(int i = 0; i < POPULATION_SIZE / 2; i++){
+    for(int i = 0; i < POPULATION_SIZE; i++){
         // Check if the city in parent2 is already in new_list
         auto it = find(new_list.begin(), new_list.end(), parent2->getCity(i));
         if(it == new_list.end()) {
@@ -207,6 +207,7 @@ void Algorithm::genetic_algorithm() {
         new_fitness = determine_fitness();
         current_improvement = base_distance / best_distance;
 
+
         if(new_fitness < best_distance) {
             set_best_fitness(new_fitness);
             cout<<"Iteration: "<< counter + 1 <<endl;
@@ -215,23 +216,24 @@ void Algorithm::genetic_algorithm() {
             cout<<"Current improvement over base: "<< current_improvement
             <<endl<<endl;
         }else {
-            cout<<"Iteration: "<< counter + 1 <<endl;
-            cout<<"Elite Distance: "<< best_distance<<endl;
-            cout<<"Best non-elite distance: "<<new_fitness<<endl;
+            cout<<"Iteration: "<< counter + 1 << endl;
+            cout<<"Elite Distance: "<< best_distance <<endl;
+            cout<<"Best non-elite distance: "<< crosses[0]->getFitnessRating() << endl;
             cout<<"Current improvement over base: "<< current_improvement <<endl<<endl;
         }
         counter ++;
     }
 
-    cout<<"--- FINISHED ALGORITHM ---"<< endl;
-    cout<<"Total iterations: "<< counter + 1 << endl;
-    cout<<"Original Elite: " << endl;
-    cout<<"Distance: " << base_distance << endl;
-    cout<< ogList <<endl;
+    //Final output.
+    cout<<"--- FINISHED ALGORITHM ---"<< endl
+        << "Total iterations: "<< counter + 1 << endl
+        <<"Original Elite: " << endl
+        <<"Distance: " << base_distance << endl
+        << ogList <<endl<<endl;
 
-    cout<<"Best Elite: " << endl;
-    cout<<"Distance: " << population[0]->getFitnessRating() <<endl;
-    cout<< population[0]->toString() << endl;
+    cout<<"Best Elite: " << endl
+        <<"Distance: " << population[0]->getFitnessRating() <<endl
+        << population[0]->toString() << endl<<endl;
 
     cout<<"Improvement reached!"<<endl;
     cout<<"Improvement factor: "<<IMPROVEMENT_FACTOR;
