@@ -59,6 +59,17 @@ City * Tour::getCity(int index) const {
     return cityList[index];
 }
 
+void Tour::setCity(int index, City * newCity) {
+    if (index >= 0 && index < cityList.size()) {
+        cityList[index] = newCity;
+    } else {
+        if (index >= cityList.size()) {
+            cityList.resize(index + 1);
+        }
+        cityList[index] = newCity;
+    }
+}
+
 vector<City *> Tour::get_city_list() const {
     return this->cityList;
 }

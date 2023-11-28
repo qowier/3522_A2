@@ -84,14 +84,14 @@ vector<Tour *> Algorithm::getPopulation() const {
 
 void Algorithm::mutate(Tour* tour) {
     for (size_t i = 0; i < tour->get_city_list().size(); i++) {
-        if (((double)getRandomInt(0, 100) /100) <= MUTATION_RATE) {
-            if (i == tour->get_city_list().size() - 1) {
-                // If i is at the last index, swap city at i with city at index 0
-                swap(tour->get_city_list()[i], tour->get_city_list()[0]);
-            } else {
-                // Swap city at index i with city at index i+1
-                swap(tour->get_city_list()[i], tour->get_city_list()[i + 1]);
-            }
+        if (((double)getRandomInt(0, 100) / 100) <= MUTATION_RATE) {
+            City* currentCity = tour->getCity(i);
+            City* nextCity = (i == tour->get_city_list().size() - 1) ? tour->getCity(0) : tour->getCity(i + 1);
+
+            // Swap the cities
+            tour->setCity((int) i, nextCity);
+            tour->setCity((i == tour->get_city_list().size() - 1) ? 0 : (int)
+            i + 1, currentCity);
         }
     }
 }
@@ -104,7 +104,7 @@ Tour* Algorithm::crossover(Tour *parent1, Tour *parent2) {
         new_list.push_back(parent1->getCity(i));
     }
 
-    for(int i = 0; i < POPULATION_SIZE; i++){
+    for(int i = 0; i < POPULATION_SIZE / 2; i++){
         // Check if the city in parent2 is already in new_list
         auto it = find(new_list.begin(), new_list.end(), parent2->getCity(i));
         if(it == new_list.end()) {
@@ -163,17 +163,22 @@ void Algorithm::genetic_algorithm() {
         set2.clear();
 
         // Create set 1 to store 5 tours (use to get parents)
-        for(int i = 0; i < PARENT_POOL_SIZE; i++) {
-            set1.push_back(population[getRandomInt(1, POPULATION_SIZE)]);
+        for (int i = 0; i < PARENT_POOL_SIZE; i++) {
+            set1.push_back(population[getRandomInt(0, POPULATION_SIZE - 1)]);
         }
 
         // Create set 2 to store 5 tours, different from set 1 (use to get parents)
         while (set2.size() < PARENT_POOL_SIZE) {
-            Tour* candidate = population[getRandomInt(1, POPULATION_SIZE)];
+            Tour* candidate = population[getRandomInt(0, POPULATION_SIZE - 1)];
 
-            // Check if the candidate is not in parent1
-            if (find(set1.begin(), set1.end(), candidate) == set1.end()) {
+            if (find(set1.begin(), set1.end(), candidate) == set1.end() &&
+                find(set2.begin(), set2.end(), candidate) == set2.end()) {
                 set2.push_back(candidate);
+            }
+
+            // Break out of the loop if set2 cannot reach PARENT_POOL_SIZE without duplicates
+            if (set2.size() + set1.size() >= POPULATION_SIZE) {
+                break;
             }
         }
 
@@ -181,7 +186,7 @@ void Algorithm::genetic_algorithm() {
         crosses.push_back(population[0]);
 
         // Create new population from crossing two sets above (set1 and set2)
-        while (crosses.size() <= POPULATION_SIZE - 1){
+        while (crosses.size() < POPULATION_SIZE){
             // Call selectParent to get a pair of parent from each set
             parents = select_parents(set1, set2);
 
@@ -194,7 +199,6 @@ void Algorithm::genetic_algorithm() {
             mutate(crosses[i]);
         }
 
-//        population = crosses;
         // Update new population with merged and mutated Tour
         population.clear();
         population.assign(crosses.begin(), crosses.end());
@@ -208,12 +212,13 @@ void Algorithm::genetic_algorithm() {
             cout<<"Iteration: "<< counter + 1 <<endl;
             cout<<"NEW ELITE FOUND!" <<endl;
             cout<<"Distance:"<< best_distance <<endl;
-            cout<<"Improvement over base: "<< current_improvement <<endl<<endl;
+            cout<<"Current improvement over base: "<< current_improvement
+            <<endl<<endl;
         }else {
             cout<<"Iteration: "<< counter + 1 <<endl;
             cout<<"Elite Distance: "<< best_distance<<endl;
             cout<<"Best non-elite distance: "<<new_fitness<<endl;
-            cout<<"Improvement over base: "<< current_improvement <<endl<<endl;
+            cout<<"Current improvement over base: "<< current_improvement <<endl<<endl;
         }
         counter ++;
     }
@@ -222,11 +227,11 @@ void Algorithm::genetic_algorithm() {
     cout<<"Total iterations: "<< counter + 1 << endl;
     cout<<"Original Elite: " << endl;
     cout<<"Distance: " << base_distance << endl;
-    cout<<"Tour: " << ogList <<endl;
+    cout<< ogList <<endl;
 
     cout<<"Best Elite: " << endl;
     cout<<"Distance: " << population[0]->getFitnessRating() <<endl;
-    cout<<"Tour "<< population[0]->toString() << endl;
+    cout<< population[0]->toString() << endl;
 
     cout<<"Improvement reached!"<<endl;
     cout<<"Improvement factor: "<<IMPROVEMENT_FACTOR;

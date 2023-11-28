@@ -62,6 +62,12 @@ public:
     City * getCity(int index) const;
 
     /**
+     * Sets city to new city
+     * @param city
+     */
+    void setCity(int index, City *city);
+
+    /**
      * Add a new city to the city_list
      * @param new_city
      */
@@ -83,6 +89,7 @@ public:
 
     /** Output toString */
     std::string toString() const;
+
 };
 
 
