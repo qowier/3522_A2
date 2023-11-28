@@ -4,6 +4,8 @@
 
 #include "Tour.hpp"
 
+#include <utility>
+
 Tour::Tour(const vector<City> &masterList) {
     std::random_device rd;
     std::mt19937 gen(rd());
@@ -68,5 +70,10 @@ vector<City *> Tour::get_city_list() {
 void Tour::setFitnessRating(double fr) {
     fitnessRating = fr;
 }
+
+void Tour::set_city_list(vector<City *> new_list) {
+    this->cityList = std::move(new_list);
+}
+
 
 

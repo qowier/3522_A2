@@ -97,17 +97,19 @@ void Algorithm::mutate(Tour* tour) {
 Tour* Algorithm::crossover(Tour *parent1, Tour *parent2) {
     // Child tour
     Tour* t = new Tour();
-
+    vector<City*> new_list;
     for(int i = 0; i < POPULATION_SIZE/2; i++){
-        t->add_city(parent1->getCity(i));
+        new_list.push_back(parent1->getCity(i));
     }
 
     for(int i = 0; i < POPULATION_SIZE; i++){
-        // Check if the city in parent 2 is already in t
-        if(!t->contains_city(*parent2->getCity(i))){
-            t->add_city(parent2->getCity(i));
+        // Check if the city in parent2 is already in new_list
+        auto it = find(new_list.begin(), new_list.end(), parent2->getCity(i));
+        if(it == new_list.end()) {
+            new_list.push_back(parent2->getCity(i));
         }
     }
+    t->set_city_list(new_list);
     t->setFitnessRating(t->get_tour_distance());
 
     return t;
@@ -148,7 +150,10 @@ void Algorithm::genetic_algorithm() {
     while(base_distance / best_distance < IMPROVEMENT_FACTOR && counter < ITERATION_MAX){
         // Get the first elite in population and swaps to front.
         pickElite();
-
+//        cout<<"Population"<<endl;
+//        for (Tour* t : population) {
+//            cout<<t<<endl;
+//        }
         //Reset all vector<Tour*>
         crosses.clear();
         set1.clear();
@@ -173,7 +178,7 @@ void Algorithm::genetic_algorithm() {
         crosses.push_back(population[0]);
 
         // Create new population from crossing two sets above (set1 and set2)
-        while (crosses.size() - 2 < POPULATION_SIZE){
+        while (crosses.size() - 1 < POPULATION_SIZE){
             // Call selectParent to get a pair of parent from each set
             parents = select_parents(set1, set2);
 
@@ -181,14 +186,30 @@ void Algorithm::genetic_algorithm() {
             crosses.push_back(crossover(parents.first, parents.second));
         }
 
+//        for(size_t i = 1; i < POPULATION_SIZE; i++) {
+//            parents = select_parents(set1, set2);
+//            crosses.push_back(crossover(parents.first, parents.second));
+//        }
+
+
         // Perform mutation in the crosses vector (new population)
         for (size_t i = 1; i < crosses.size(); i++) {
             mutate(crosses[i]);
         }
 
+//        cout<<"Crosses"<<endl;
+//        for (Tour* t : crosses) {
+//            cout<<t<<endl;
+//        }
+        cout<<endl;
         // Update new population with merged and mutated Tour
         population.clear();
         population.assign(crosses.begin(), crosses.end());
+
+//        cout<<"Population"<<endl;
+//        for (Tour* t : population) {
+//            cout<<t<<endl;
+//        }
 
         // Revaluate fitness to find the best_fitness
         new_fitness = determine_fitness();

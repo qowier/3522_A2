@@ -75,6 +75,8 @@ public:
      * @param city City to be searched for
      */
     bool contains_city(const City& city) const;
+
+    void set_city_list(vector<City*> new_list);
 };
 
 
