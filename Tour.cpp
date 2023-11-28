@@ -5,6 +5,7 @@
 #include "Tour.hpp"
 
 #include <utility>
+#include <sstream>
 
 Tour::Tour(const vector<City> &masterList) {
     std::random_device rd;
@@ -54,11 +55,11 @@ void Tour::add_city(City *new_city) {
     this->cityList.push_back(new_city);
 }
 
-City* Tour::getCity(int index) {
+City * Tour::getCity(int index) const {
     return cityList[index];
 }
 
-vector<City *> Tour::get_city_list() {
+vector<City *> Tour::get_city_list() const {
     return this->cityList;
 }
 
@@ -72,6 +73,19 @@ void Tour::set_city_list(vector<City *> new_list) {
 
 int Tour::getCitiesInTours() const {
     return CITIES_IN_TOURS;
+}
+
+std::string Tour::toString() const {
+    std::stringstream ss;
+    ss << "Tour: [";
+    for (int i = 0; i < (int) get_city_list().size(); ++i) {
+        if (i > 0) {
+            ss << " -> ";
+        }
+        ss << getCity(i)->getName(); // Assuming City has a getName() method
+    }
+    ss << "]";
+    return ss.str();
 }
 
 

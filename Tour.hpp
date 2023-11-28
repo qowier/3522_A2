@@ -38,7 +38,7 @@ public:
     int getCitiesInTours() const;
 
     /**Getter for cityList */
-    vector<City*> get_city_list();
+    vector<City*> get_city_list() const;
 
     /**
    * Returns the distance of the tour.
@@ -59,7 +59,7 @@ public:
      * @param index
      * @return City pointer;
      */
-    City* getCity(int index);
+    City * getCity(int index) const;
 
     /**
      * Add a new city to the city_list
@@ -78,7 +78,11 @@ public:
      */
     bool contains_city(const City& city) const;
 
+    /** Setter for city list */
     void set_city_list(vector<City*> new_list);
+
+    /** Output toString */
+    std::string toString() const;
 };
 
 

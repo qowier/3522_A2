@@ -84,12 +84,14 @@ vector<Tour *> Algorithm::getPopulation() const {
 
 void Algorithm::mutate(Tour* tour) {
     for (size_t i = 0; i < tour->get_city_list().size(); i++) {
-        if (getRandomDouble(0, 1) <= MUTATION_RATE) {
-            if(i == tour->get_city_list().size()-1){
+        if (((double)getRandomInt(0, 100) /100) <= MUTATION_RATE) {
+            if (i == tour->get_city_list().size() - 1) {
+                // If i is at the last index, swap city at i with city at index 0
                 swap(tour->get_city_list()[i], tour->get_city_list()[0]);
-
+            } else {
+                // Swap city at index i with city at index i+1
+                swap(tour->get_city_list()[i], tour->get_city_list()[i + 1]);
             }
-            swap(tour->get_city_list()[i], tour->get_city_list()[i+1]);
         }
     }
 }
@@ -144,16 +146,17 @@ void Algorithm::genetic_algorithm() {
     vector<Tour*> crosses;
     pair<Tour*, Tour*> parents;
 
+    //Prepare output for original list
+    pickElite();
+    string ogList = population[0]->toString();
+
     // Best_fitness will equal to base initially
     set_best_fitness(base_distance);
 
     while(current_improvement < IMPROVEMENT_FACTOR && counter < ITERATION_MAX){
         // Get the first elite in population and swaps to front.
         pickElite();
-//        cout<<"Population"<<endl;
-//        for (Tour* t : population) {
-//            cout<<t<<endl;
-//        }
+
         //Reset all vector<Tour*>
         crosses.clear();
         set1.clear();
@@ -178,7 +181,7 @@ void Algorithm::genetic_algorithm() {
         crosses.push_back(population[0]);
 
         // Create new population from crossing two sets above (set1 and set2)
-        while (crosses.size() <= POPULATION_SIZE){
+        while (crosses.size() <= POPULATION_SIZE - 1){
             // Call selectParent to get a pair of parent from each set
             parents = select_parents(set1, set2);
 
@@ -186,34 +189,28 @@ void Algorithm::genetic_algorithm() {
             crosses.push_back(crossover(parents.first, parents.second));
         }
 
-//        for(size_t i = 1; i < POPULATION_SIZE; i++) {
-//            parents = select_parents(set1, set2);
-//            crosses.push_back(crossover(parents.first, parents.second));
-//        }
-
-
         // Perform mutation in the crosses vector (new population)
         for (size_t i = 1; i < crosses.size(); i++) {
             mutate(crosses[i]);
         }
 
+//        population = crosses;
         // Update new population with merged and mutated Tour
         population.clear();
         population.assign(crosses.begin(), crosses.end());
-        crosses.clear();
 
         // Revaluate fitness to find the best_fitness
         new_fitness = determine_fitness();
-        current_improvement = base_distance / best_distance - 1;
+        current_improvement = base_distance / best_distance;
 
         if(new_fitness < best_distance) {
             set_best_fitness(new_fitness);
-            cout<<"Iteration: "<<counter + 1 <<endl;
+            cout<<"Iteration: "<< counter + 1 <<endl;
             cout<<"NEW ELITE FOUND!" <<endl;
             cout<<"Distance:"<< best_distance <<endl;
             cout<<"Improvement over base: "<< current_improvement <<endl<<endl;
         }else {
-            cout<<"Iteration: "<<counter + 1 <<endl;
+            cout<<"Iteration: "<< counter + 1 <<endl;
             cout<<"Elite Distance: "<< best_distance<<endl;
             cout<<"Best non-elite distance: "<<new_fitness<<endl;
             cout<<"Improvement over base: "<< current_improvement <<endl<<endl;
@@ -221,15 +218,15 @@ void Algorithm::genetic_algorithm() {
         counter ++;
     }
 
-    cout<<"--- FINISHED ALGORITHM ---"<<endl;
-    cout<<"Total iterations: "<<counter<<endl;
-    cout<<"Original Elite: "<<endl;
-    cout<<"Distance: "<<0<<endl;
-    cout<<"Tour"<<endl<<endl;
+    cout<<"--- FINISHED ALGORITHM ---"<< endl;
+    cout<<"Total iterations: "<< counter + 1 << endl;
+    cout<<"Original Elite: " << endl;
+    cout<<"Distance: " << base_distance << endl;
+    cout<<"Tour: " << ogList <<endl;
 
-    cout<<"Best Elite: "<<endl;
-    cout<<"Distance: "<<0<<endl;
-    cout<<"Tour"<<endl<<endl;
+    cout<<"Best Elite: " << endl;
+    cout<<"Distance: " << population[0]->getFitnessRating() <<endl;
+    cout<<"Tour "<< population[0]->toString() << endl;
 
     cout<<"Improvement reached!"<<endl;
     cout<<"Improvement factor: "<<IMPROVEMENT_FACTOR;

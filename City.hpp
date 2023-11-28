@@ -18,7 +18,12 @@ struct City {
     int y;
 
     //Constructor
-    City(string name, int x, int y) : name(std::move(name)), x(x), y(y){};
+    City(string name, int x, int y) : name(std::move(name)), x(x), y(y){};\
+
+    /** Getter for city names */
+    const string &getName() const {
+        return name;
+    }
 
     //Default destructor
     ~City() = default;
